@@ -18,7 +18,27 @@ object Repository {
 
     fun createTestData()
     {
+        val product1 = Product("Pasta", "10kr", "3", )
+        val product2 = Product("Pasta", "10kr", "3", )
+        val product3 = Product("Pasta", "10kr", "3", )
+
+
         //add some products to the products list - for testing purposes
+
+        products.add(product1)
+        products.add(product2)
+        products.add(product3)
     }
 
+    fun deleteProduct(index: Int) {
+        products.removeAt(index)
+    }
+
+    fun deleteAllProducts(){
+        products.clear()
+        productListener.value= products
+    }
+
+    fun addProduct(){
+    }
 }
