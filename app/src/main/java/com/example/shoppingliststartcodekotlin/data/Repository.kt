@@ -39,6 +39,8 @@ object Repository {
         productListener.value= products
     }
 
-    fun addProduct(){
+    fun addProduct(product:Product){
+        products.add(product)
+        productListener.value = products
     }
 }

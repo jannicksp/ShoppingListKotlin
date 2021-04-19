@@ -54,8 +54,6 @@ class ProductAdapter(var products: MutableList<Product>) :
             itemImage= itemView.findViewById(R.id.item_image)
 
 
-
-            //itemDetail = itemView.findViewById(R.id.item_detail)
             itemDelete.setOnClickListener { v: View ->
                 val position = adapterPosition
                 Repository.deleteProduct(position)

@@ -9,7 +9,9 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppingliststartcodekotlin.adapters.ProductAdapter
+import com.example.shoppingliststartcodekotlin.data.Product
 import com.example.shoppingliststartcodekotlin.data.Repository
+import com.example.shoppingliststartcodekotlin.data.Repository.addProduct
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,10 +25,19 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
-
+    private fun addNewProduct(){
+        val newProduct = Product(
+                name = editTextTitle.text.toString(),
+                quantity = editTextQuanity.text.toString(),
+                price = editTextPrice.text.toString(),
+                )
+        addProduct(newProduct)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        button_add.setOnClickListener{ addNewProduct()}
 
         Repository.getData().observe(this, Observer {
             Log.d("Products","Found ${it.size} products")

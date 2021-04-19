@@ -23,11 +23,13 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/item_title"
             android:layout_width="236dp"
             android:layout_height="39dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="48dp"
             android:textSize="30sp"
             app:layout_constraintLeft_toRightOf="@+id/item_image"
             app:layout_constraintStart_toEndOf="@+id/item_image"
@@ -37,33 +39,32 @@
             android:id="@+id/item_price"
             android:layout_width="236dp"
             android:layout_height="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="100dp"
             app:layout_constraintLeft_toRightOf="@+id/item_image"
             app:layout_constraintStart_toEndOf="@+id/item_image"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/item_quantity"
             android:layout_width="236dp"
             android:layout_height="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="44dp"
             app:layout_constraintLeft_toRightOf="@+id/item_image"
             app:layout_constraintStart_toEndOf="@+id/item_image"
             app:layout_constraintTop_toBottomOf="@+id/item_title" />
 
         <ImageButton
             android:id="@+id/item_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="44dp"
-            app:layout_constraintLeft_toRightOf="@+id/item_image"
-            app:layout_constraintStart_toEndOf="@+id/item_image"
-            app:layout_constraintTop_toBottomOf="@+id/item_title"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
+            android:layout_width="51dp"
+            android:layout_height="45dp"
+            app:srcCompat="@drawable/ic_launcher_foreground"
+            tools:layout_editor_absoluteX="294dp"
+            tools:layout_editor_absoluteY="-4dp"
+            tools:ignore="MissingConstraints" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>
