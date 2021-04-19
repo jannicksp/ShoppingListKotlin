@@ -59,7 +59,7 @@
             android:id="@+id/item_delete"
             android:layout_width="51dp"
             android:layout_height="45dp"
-            app:srcCompat="@drawable/ic_launcher_foreground"
+            app:srcCompat="@drawable/ic_delete_white"
             tools:layout_editor_absoluteX="294dp"
             tools:layout_editor_absoluteY="-4dp"
             tools:ignore="MissingConstraints" />
