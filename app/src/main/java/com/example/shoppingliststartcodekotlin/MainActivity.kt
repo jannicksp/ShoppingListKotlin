@@ -12,6 +12,7 @@ import com.example.shoppingliststartcodekotlin.adapters.ProductAdapter
 import com.example.shoppingliststartcodekotlin.data.Product
 import com.example.shoppingliststartcodekotlin.data.Repository
 import com.example.shoppingliststartcodekotlin.data.Repository.addProduct
+import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        FirebaseApp.initializeApp(applicationContext)
         button_add.setOnClickListener{ addNewProduct()}
 
         Repository.getData().observe(this, Observer {
