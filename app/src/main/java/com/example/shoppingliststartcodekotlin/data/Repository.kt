@@ -1,10 +1,14 @@
 package com.example.shoppingliststartcodekotlin.data
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 object Repository {
     var products = mutableListOf<Product>()
-
+    private lateinit var db: FirebaseFirestore
     //listener to changes that we can then use in the Activity
     private var productListener = MutableLiveData<MutableList<Product>>()
 
@@ -39,8 +43,17 @@ object Repository {
         productListener.value= products
     }
 
-    fun addProduct(product:Product){
+    fun addProduct(product:Product) {
+        db = Firebase.firestore
         products.add(product)
         productListener.value = products
+        db.collection("products")
+            .add(product)
+            .addOnSuccessListener { documentReference ->
+                Log.d("Error", "DocumentSnapshot written with ID: " + documentReference.id)
+                product.id = documentReference.id            }
+            .addOnFailureListener{ e ->
+                Log.w("Error", "Error adding document", e)
+            }
     }
 }
