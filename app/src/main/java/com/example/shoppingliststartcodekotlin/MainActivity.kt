@@ -1,10 +1,14 @@
 package com.example.shoppingliststartcodekotlin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,12 +17,14 @@ import com.example.shoppingliststartcodekotlin.data.Product
 import com.example.shoppingliststartcodekotlin.data.Repository
 import com.example.shoppingliststartcodekotlin.data.Repository.addProduct
 import com.example.shoppingliststartcodekotlin.data.Repository.deleteAllProducts
+import com.example.shoppingliststartcodekotlin.data.Repository.products
 import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     //you need to have an Adapter for the products
+    private val items = arrayOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
    lateinit var adapter: ProductAdapter
 
 
@@ -55,6 +61,31 @@ class MainActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
         }
 
+        //Spinner
+        val adapter = ArrayAdapter(this,
+                android.R.layout.simple_spinner_dropdown_item, items)
+
+        spinner1.adapter = adapter
+
+        spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            //The AdapterView<?> type means that this can be any type,
+            //so we can use both AdapterView<String> or any other
+            override fun onItemSelected(adapterView: AdapterView<*>, view: View,
+                                        position: Int, id: Long) {
+                //So this code is called when ever the spinner is clicked
+                Toast.makeText(this@MainActivity,
+                        "Item selected: " + items[position], Toast.LENGTH_SHORT)
+                        .show()
+            }
+
+            override fun onNothingSelected(arg0: AdapterView<*>) {
+                // you would normally do something here
+                // for instace setting the selected item to "null"
+                // or something.
+            }
+        }
+
     }
 
 
@@ -80,8 +111,14 @@ class MainActivity : AppCompatActivity() {
         Log.d("icon_pressed", "${item.itemId}")
         when (item.itemId) {
             R.id.item_about -> {
-                Toast.makeText(this, "About item clicked!", Toast.LENGTH_LONG)
-                    .show()
+                /* Share content */
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, "Hello i want to share this awesome shopping list with you: ${products}")
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(sendIntent, "Share list with..")
+                startActivity(shareIntent)
                 return true
             }
             R.id.item_delete -> {

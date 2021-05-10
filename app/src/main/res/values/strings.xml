@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">ShoppingList</string>
-    <string name="delete">Delete</string>
+    <string name="delete">Delete All</string>
     <string name="about">About</string>
     <string name="refresh">Refresh</string>
     <string name="help">Help</string>
