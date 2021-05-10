@@ -43,7 +43,6 @@ class ProductAdapter(var products: MutableList<Product>) :
         var itemPrice: TextView
         var itemQuantity: TextView
         var itemDelete: ImageButton
-        var itemImage: ImageView
 
 
         init {
@@ -51,7 +50,6 @@ class ProductAdapter(var products: MutableList<Product>) :
             itemPrice = itemView.findViewById(R.id.item_price)
             itemQuantity = itemView.findViewById(R.id.item_quantity)
             itemDelete= itemView.findViewById(R.id.item_delete)
-            itemImage= itemView.findViewById(R.id.item_image)
 
 
             itemDelete.setOnClickListener { v: View ->
