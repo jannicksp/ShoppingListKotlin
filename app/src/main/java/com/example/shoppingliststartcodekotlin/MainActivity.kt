@@ -12,6 +12,7 @@ import com.example.shoppingliststartcodekotlin.adapters.ProductAdapter
 import com.example.shoppingliststartcodekotlin.data.Product
 import com.example.shoppingliststartcodekotlin.data.Repository
 import com.example.shoppingliststartcodekotlin.data.Repository.addProduct
+import com.example.shoppingliststartcodekotlin.data.Repository.deleteAllProducts
 import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -44,6 +45,16 @@ class MainActivity : AppCompatActivity() {
             Log.d("Products","Found ${it.size} products")
             updateUI()
         })
+        sortNameButton.setOnClickListener {
+            Repository.products.sortBy { it.name }
+            adapter.notifyDataSetChanged()
+        }
+
+        sortQuantityButton.setOnClickListener {
+            Repository.products.sortByDescending { it.quantity }
+            adapter.notifyDataSetChanged()
+        }
+
     }
 
 
@@ -76,7 +87,11 @@ class MainActivity : AppCompatActivity() {
             R.id.item_delete -> {
                 Toast.makeText(this, "Delete item clicked!", Toast.LENGTH_LONG)
                     .show()
-                Repository.deleteAllProducts()
+                //Repository.deleteAllProducts()
+                val dialog = YesNoDialog(::deleteAllProducts, true)
+                dialog.show(supportFragmentManager, "yesnodialogfragment")
+//this is called from an Activity - the “yesnodialogfragment” string is just for debugging - //you can put any name here
+
                 return true
             }
             R.id.item_help -> {

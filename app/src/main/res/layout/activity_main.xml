@@ -60,7 +60,6 @@
             android:text="Add"
             tools:layout_editor_absoluteX="281dp"
             tools:layout_editor_absoluteY="98dp" />
-
         <LinearLayout
             android:id="@+id/LinearLayout02"
             android:layout_height="wrap_content"
@@ -68,26 +67,26 @@
             android:layout_alignParentBottom="true">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/sortNameButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Sort by Name" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/sortQuantityButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Sort by Number" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="539dp" />
+
 
         </LinearLayout>
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

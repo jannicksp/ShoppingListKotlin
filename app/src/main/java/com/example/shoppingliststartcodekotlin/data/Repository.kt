@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 object Repository {
@@ -15,7 +16,8 @@ object Repository {
 
     fun getData(): MutableLiveData<MutableList<Product>> {
         if (products.isEmpty())
-            createTestData()
+            //readDataFromFireBase()
+            addRealTimeListener()
         productListener.value = products //we inform the listener we have new data
         return productListener
     }
@@ -35,12 +37,27 @@ object Repository {
     }
 
     fun deleteProduct(index: Int) {
-        products.removeAt(index)
+        db = Firebase.firestore
+        val product = products[index]
+        db.collection("products").document(product.id).delete().addOnSuccessListener {
+            Log.d("Snapshot","DocumentSnapshot with id: ${product.id} successfully deleted!")
+            //products.removeAt(index) //removes it from the list
+        }
+            .addOnFailureListener { e -> Log.w("Error", "Error deleting document", e) }
     }
 
-    fun deleteAllProducts(){
-        products.clear()
-        productListener.value= products
+    fun deleteAllProducts(add:Boolean){
+
+        if (add) {
+            db = Firebase.firestore
+            products.clear()
+            productListener.value= products
+        }
+
+        else {
+
+        }
+
     }
 
     fun addProduct(product:Product) {
@@ -56,4 +73,49 @@ object Repository {
                 Log.w("Error", "Error adding document", e)
             }
     }
+    private fun readDataFromFireBase()
+    {
+        val db = Firebase.firestore
+        db.collection("products").get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("Repository", "${document.id} => ${document.data}")
+                    val product = document.toObject<Product>()
+                    product.id = document.id  //set the ID in the product class
+                    products.add(product)
+                }
+                productListener.value = products //notify our listener we have new data
+            }
+            .addOnFailureListener { exception ->
+                Log.d("Repository", "Error getting documents: ", exception)
+            }
+    }
+    private fun update(product: Product,  name: String, price: String, quantity: String) {
+        db.collection("products").document(product.id)
+            .update("name", name, "price", price, "quantity", quantity)
+    }
+
+    private fun addRealTimeListener()
+    {
+        val db = Firebase.firestore
+        val docRef = db.collection("products")
+        docRef.addSnapshotListener { snapshot, e ->
+            if (e != null) {  //any errors
+                Log.d("Repository", "Listen failed.", e)
+                return@addSnapshotListener
+            }
+            products.clear() //to avoid duplicates.
+            for (document in snapshot?.documents!!) { //add all products to the list
+                Log.d("Repository_snapshotlist", "${document.id} => ${document.data}")
+                val product = document.toObject<Product>()!!
+                product.id = document.id
+                products.add(product)
+            }
+
+            productListener.value = products
+        }
+    }
+
+
+
 }
