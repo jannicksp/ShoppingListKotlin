@@ -20,12 +20,24 @@ import com.example.shoppingliststartcodekotlin.data.Repository.deleteAllProducts
 import com.example.shoppingliststartcodekotlin.data.Repository.products
 import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.product_view.*
 
 class MainActivity : AppCompatActivity() {
 
     //you need to have an Adapter for the products
     private val items = arrayOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
    lateinit var adapter: ProductAdapter
+
+    fun convertListToString(): String
+    {
+        var result = ""
+        for (product in Repository.products)
+        {
+            result = result + product.toString()
+        }
+        return result
+    }
+
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -104,6 +116,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -112,13 +125,12 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.item_about -> {
                 /* Share content */
-                val sendIntent: Intent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, "Hello i want to share this awesome shopping list with you: ${products}")
-                    type = "text/plain"
-                }
-                val shareIntent = Intent.createChooser(sendIntent, "Share list with..")
-                startActivity(shareIntent)
+                val text = convertListToString() //from EditText
+                val sharingIntent = Intent(Intent.ACTION_SEND)
+                sharingIntent.type = "text/plain" //MIME-TYPE
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Shared Data")
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, text)
+                startActivity(Intent.createChooser(sharingIntent, "Share Using"))
                 return true
             }
             R.id.item_delete -> {

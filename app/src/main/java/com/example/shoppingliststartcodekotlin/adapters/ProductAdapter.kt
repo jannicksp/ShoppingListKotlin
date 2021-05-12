@@ -54,8 +54,25 @@ class ProductAdapter(var products: MutableList<Product>) :
 
             itemDelete.setOnClickListener { v: View ->
                 val position = adapterPosition
+                val parent = v.rootView.findViewById<View>(R.id.mainView)
+                val savedProduct = Repository.products[position]
                 Repository.deleteProduct(position)
                 notifyItemRemoved(position) //this line notify the adapter
+                // Snackbar
+                val snackbar = Snackbar
+                    .make(parent, "Item deleted", Snackbar.LENGTH_LONG)
+                    .setAction("UNDO") {
+                        //This code will ONLY be executed in case that
+                        //the user has hit the UNDO button
+                        Repository.addProduct(savedProduct)
+                        val snackbar = Snackbar.make(parent, "Item restored!", Snackbar.LENGTH_SHORT)
+
+                        snackbar.show()
+                    }
+
+                snackbar.show()
+
+
             }
         }
 
