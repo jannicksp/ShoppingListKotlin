@@ -46,17 +46,19 @@ object Repository {
             .addOnFailureListener { e -> Log.w("Error", "Error deleting document", e) }
     }
 
-    fun deleteAllProducts(add:Boolean){
-
-        if (add) {
-            db = Firebase.firestore
-            products.clear()
-            productListener.value= products
+    fun deleteAllProducts(): MutableLiveData<MutableList<Product>>{
+        db = Firebase.firestore
+        productListener.value = products
+        for (product in products){
+            db.collection("products").document(product.id).delete().addOnSuccessListener {
+                Log.d("Snapshot","DocumentSnapshot with id: ${product.id} successfully deleted!")
+                // products.removeAt(index) //removes it from the list
+            }
+                .addOnFailureListener { e -> Log.w("Error", "Error deleting document", e) }
         }
-
-        else {
-
-        }
+        products.clear()
+        productListener.value = products
+        return productListener
 
     }
 

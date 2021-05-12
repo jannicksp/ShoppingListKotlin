@@ -17,10 +17,9 @@ import com.example.shoppingliststartcodekotlin.data.Product
 import com.example.shoppingliststartcodekotlin.data.Repository
 import com.example.shoppingliststartcodekotlin.data.Repository.addProduct
 import com.example.shoppingliststartcodekotlin.data.Repository.deleteAllProducts
-import com.example.shoppingliststartcodekotlin.data.Repository.products
 import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.product_view.*
+import org.pondar.dialogfragmentdemokotlinnew.MyDialogFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -117,6 +116,34 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //callback function from yes/no dialog - for yes choice
+    fun positiveClicked() {
+        val toast = Toast.makeText(
+            this,
+            "positive button clicked", Toast.LENGTH_LONG
+        )
+        toast.show()
+        Repository.deleteAllProducts()
+    }
+
+
+    //callback function from yes/no dialog - for no choice
+    fun negativeClick() {
+        //Here we override the method and can now do something
+        val toast = Toast.makeText(
+            this,
+            "negative button clicked", Toast.LENGTH_LONG
+        )
+        toast.show()
+    }
+
+
+    fun showDialog(v: View) {
+        //showing our dialog.
+
+    }
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -136,10 +163,8 @@ class MainActivity : AppCompatActivity() {
             R.id.item_delete -> {
                 Toast.makeText(this, "Delete item clicked!", Toast.LENGTH_LONG)
                     .show()
-                //Repository.deleteAllProducts()
-                val dialog = YesNoDialog(::deleteAllProducts, true)
-                dialog.show(supportFragmentManager, "yesnodialogfragment")
-//this is called from an Activity - the “yesnodialogfragment” string is just for debugging - //you can put any name here
+                val dialog = MyDialogFragment(::positiveClicked, ::negativeClick)
+                dialog.show(supportFragmentManager, "myFragment")
 
                 return true
             }
