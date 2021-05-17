@@ -7,12 +7,54 @@
     tools:context=".MainActivity"
     android:id="@+id/mainView">
 
+    <LinearLayout android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:text="@string/myName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/myName"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/textViewNotifications"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="75dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="@string/notifications_on"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/useNotifications"
+            android:text="" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" android:layout_marginTop="50dp"
+        android:orientation="vertical" >
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add a product"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/item_title"
@@ -45,11 +87,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Quantity" />
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"/>
 
         <EditText
             android:id="@+id/editTextQuanity"

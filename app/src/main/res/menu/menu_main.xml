@@ -16,7 +16,7 @@
         android:id="@+id/item_refresh"
         app:showAsAction="ifRoom"
         android:orderInCategory="3"
-        android:title="@string/refresh"/>
+        android:title="@string/settings"/>
 
     <item
         android:id="@+id/item_about"

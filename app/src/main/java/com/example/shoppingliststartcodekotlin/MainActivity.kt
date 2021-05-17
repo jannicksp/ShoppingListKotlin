@@ -25,7 +25,8 @@ class MainActivity : AppCompatActivity() {
 
     //you need to have an Adapter for the products
     private val items = arrayOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
-   lateinit var adapter: ProductAdapter
+    lateinit var adapter: ProductAdapter
+    private val RESULT_CODE_PREFERENCES = 1
 
     fun convertListToString(): String
     {
@@ -72,30 +73,11 @@ class MainActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
         }
 
-        //Spinner
-        val adapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_dropdown_item, items)
+        //read the values at app startup so we can show this in the UI
+        val name = PreferenceHandler.getName(this)
+        val notifications = PreferenceHandler.useNotifications(this)
+        updateUISettings(name,notifications)
 
-        spinner1.adapter = adapter
-
-        spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
-            //The AdapterView<?> type means that this can be any type,
-            //so we can use both AdapterView<String> or any other
-            override fun onItemSelected(adapterView: AdapterView<*>, view: View,
-                                        position: Int, id: Long) {
-                //So this code is called when ever the spinner is clicked
-                Toast.makeText(this@MainActivity,
-                        "Item selected: " + items[position], Toast.LENGTH_SHORT)
-                        .show()
-            }
-
-            override fun onNothingSelected(arg0: AdapterView<*>) {
-                // you would normally do something here
-                // for instace setting the selected item to "null"
-                // or something.
-            }
-        }
 
     }
 
@@ -113,7 +95,29 @@ class MainActivity : AppCompatActivity() {
 
       /*connecting the recyclerview to the adapter  */
         recyclerView.adapter = adapter
+    }
 
+    fun updateUISettings(name: String, notifications:Boolean){
+        myName.text = name
+        if (notifications)
+            useNotifications.text = getString(R.string.on)
+        else
+            useNotifications.text = getString(R.string.off)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == RESULT_CODE_PREFERENCES)
+        //the code means we came back from settings
+        {
+            //I can can these methods like this, because they are static
+            val name = PreferenceHandler.getName(this)
+            val notifications = PreferenceHandler.useNotifications(this)
+            val message = "Welcome, $name"
+            val toast = Toast.makeText(this, message, Toast.LENGTH_LONG)
+            toast.show()
+            updateUISettings(name,notifications)
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     //callback function from yes/no dialog - for yes choice
@@ -174,10 +178,11 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.item_refresh -> {
-                Toast.makeText(this, "Refresh item clicked!", Toast.LENGTH_LONG)
-                    .show()
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivityForResult(intent, RESULT_CODE_PREFERENCES)
                 return true
             }
+
         }
 
         return false //we did not handle the event
