@@ -92,7 +92,8 @@ object Repository {
                 Log.d("Repository", "Error getting documents: ", exception)
             }
     }
-    private fun update(product: Product,  name: String, price: String, quantity: String) {
+     fun updateProduct(product: Product,  name: String, price: String, quantity: Int) {
+         db = Firebase.firestore
         db.collection("products").document(product.id)
             .update("name", name, "price", price, "quantity", quantity)
     }

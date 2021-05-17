@@ -1,22 +1,19 @@
 package com.example.shoppingliststartcodekotlin
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppingliststartcodekotlin.adapters.ProductAdapter
 import com.example.shoppingliststartcodekotlin.data.Product
 import com.example.shoppingliststartcodekotlin.data.Repository
 import com.example.shoppingliststartcodekotlin.data.Repository.addProduct
-import com.example.shoppingliststartcodekotlin.data.Repository.deleteAllProducts
 import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_main.*
 import org.pondar.dialogfragmentdemokotlinnew.MyDialogFragment
@@ -37,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         }
         return result
     }
-
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -77,8 +73,6 @@ class MainActivity : AppCompatActivity() {
         val name = PreferenceHandler.getName(this)
         val notifications = PreferenceHandler.useNotifications(this)
         updateUISettings(name,notifications)
-
-
     }
 
 
@@ -172,6 +166,7 @@ class MainActivity : AppCompatActivity() {
 
                 return true
             }
+
             R.id.item_help -> {
                 Toast.makeText(this, "Help item clicked!", Toast.LENGTH_LONG)
                     .show()

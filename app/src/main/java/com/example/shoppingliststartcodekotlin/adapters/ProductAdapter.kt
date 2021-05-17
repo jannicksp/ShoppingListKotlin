@@ -3,10 +3,7 @@ package com.example.shoppingliststartcodekotlin.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppingliststartcodekotlin.R
 import com.example.shoppingliststartcodekotlin.data.Product
@@ -43,6 +40,7 @@ class ProductAdapter(var products: MutableList<Product>) :
         var itemPrice: TextView
         var itemQuantity: TextView
         var itemDelete: ImageButton
+        var itemEdit: ImageButton
 
 
         init {
@@ -50,6 +48,7 @@ class ProductAdapter(var products: MutableList<Product>) :
             itemPrice = itemView.findViewById(R.id.item_price)
             itemQuantity = itemView.findViewById(R.id.item_quantity)
             itemDelete= itemView.findViewById(R.id.item_delete)
+            itemEdit= itemView.findViewById(R.id.item_edit)
 
 
             itemDelete.setOnClickListener { v: View ->
@@ -73,6 +72,11 @@ class ProductAdapter(var products: MutableList<Product>) :
                 snackbar.show()
 
 
+            }
+
+            itemEdit.setOnClickListener { v: View ->
+
+                Toast.LENGTH_LONG
             }
         }
 
