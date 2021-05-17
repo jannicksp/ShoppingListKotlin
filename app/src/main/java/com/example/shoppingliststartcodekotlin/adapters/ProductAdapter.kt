@@ -25,7 +25,7 @@ class ProductAdapter(var products: MutableList<Product>) :
     override fun onBindViewHolder(holder: ProductAdapter.ViewHolder, position: Int) {
         holder.itemTitle.text = products[position].name
         holder.itemPrice.text = products[position].price
-        holder.itemQuantity.text = products[position].quantity
+        holder.itemQuantity.text = products[position].quantity.toString()
     }
 
     override fun getItemCount(): Int {

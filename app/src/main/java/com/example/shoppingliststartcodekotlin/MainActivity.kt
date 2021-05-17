@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     private fun addNewProduct(){
         val newProduct = Product(
                 name = editTextTitle.text.toString(),
-                quantity = editTextQuanity.text.toString(),
+                quantity = editTextQuanity.text.toString().toInt(),
                 price = editTextPrice.text.toString(),
                 )
         addProduct(newProduct)

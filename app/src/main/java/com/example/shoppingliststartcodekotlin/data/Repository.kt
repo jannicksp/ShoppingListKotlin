@@ -24,9 +24,9 @@ object Repository {
 
     fun createTestData()
     {
-        val product1 = Product("Pasta", "10kr", "3", )
-        val product2 = Product("Pasta", "10kr", "3", )
-        val product3 = Product("Pasta", "10kr", "3", )
+        val product1 = Product("Pasta", "10kr", 3, )
+        val product2 = Product("Pasta", "10kr", 3, )
+        val product3 = Product("Pasta", "10kr", 3, )
 
 
         //add some products to the products list - for testing purposes
