@@ -172,7 +172,7 @@ class MainActivity : AppCompatActivity() {
                     .show()
                 return true
             }
-            R.id.item_refresh -> {
+            R.id.item_settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivityForResult(intent, RESULT_CODE_PREFERENCES)
                 return true

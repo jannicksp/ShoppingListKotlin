@@ -2,11 +2,11 @@ package com.example.shoppingliststartcodekotlin.data
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import java.text.FieldPosition
 
 object Repository {
     var products = mutableListOf<Product>()
@@ -21,20 +21,6 @@ object Repository {
             addRealTimeListener()
         productListener.value = products //we inform the listener we have new data
         return productListener
-    }
-
-    fun createTestData()
-    {
-        val product1 = Product("Pasta", "10kr", 3, )
-        val product2 = Product("Pasta", "10kr", 3, )
-        val product3 = Product("Pasta", "10kr", 3, )
-
-
-        //add some products to the products list - for testing purposes
-
-        products.add(product1)
-        products.add(product2)
-        products.add(product3)
     }
 
     fun deleteProduct(index: Int) {
@@ -76,35 +62,13 @@ object Repository {
                 Log.w("Error", "Error adding document", e)
             }
     }
-    private fun readDataFromFireBase()
-    {
-        val db = Firebase.firestore
-        db.collection("products").get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d("Repository", "${document.id} => ${document.data}")
-                    val product = document.toObject<Product>()
-                    product.id = document.id  //set the ID in the product class
-                    products.add(product)
-                }
-                productListener.value = products //notify our listener we have new data
-            }
-            .addOnFailureListener { exception ->
-                Log.d("Repository", "Error getting documents: ", exception)
-            }
-    }
-     fun updateProduct(product: Product,  name: String, price: String, quantity: Int) {
-         db = Firebase.firestore
-        db.collection("products").document(product.id)
-            .update("name", name, "price", price, "quantity", quantity)
-    }
 
     fun incrementByOne(position: Int){
         val product = products[position]
         product.quantity++
         db = Firebase.firestore
         db.collection("products").document(product.id)
-                .update( "quantity", product.quantity++)
+                .update( "quantity", FieldValue.increment(1))
     }
 
     fun decrementByOne(position: Int){
@@ -112,7 +76,7 @@ object Repository {
             product.quantity--
             db = Firebase.firestore
             db.collection("products").document(product.id)
-                    .update("quantity", product.quantity--)
+                    .update("quantity", FieldValue.increment(-1))
     }
 
     private fun addRealTimeListener()
@@ -135,7 +99,6 @@ object Repository {
             productListener.value = products
         }
     }
-
 
 
 }
