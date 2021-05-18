@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppingliststartcodekotlin.R
 import com.example.shoppingliststartcodekotlin.data.Product
 import com.example.shoppingliststartcodekotlin.data.Repository
+import com.example.shoppingliststartcodekotlin.data.Repository.decrementByOne
+import com.example.shoppingliststartcodekotlin.data.Repository.incrementByOne
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -40,7 +42,8 @@ class ProductAdapter(var products: MutableList<Product>) :
         var itemPrice: TextView
         var itemQuantity: TextView
         var itemDelete: ImageButton
-        var itemEdit: ImageButton
+        var itemIncrease: ImageButton
+        var itemDecrease: ImageButton
 
 
         init {
@@ -48,7 +51,9 @@ class ProductAdapter(var products: MutableList<Product>) :
             itemPrice = itemView.findViewById(R.id.item_price)
             itemQuantity = itemView.findViewById(R.id.item_quantity)
             itemDelete= itemView.findViewById(R.id.item_delete)
-            itemEdit= itemView.findViewById(R.id.item_edit)
+            itemIncrease= itemView.findViewById(R.id.item_increase)
+            itemDecrease= itemView.findViewById(R.id.item_decrease)
+
 
 
             itemDelete.setOnClickListener { v: View ->
@@ -74,9 +79,20 @@ class ProductAdapter(var products: MutableList<Product>) :
 
             }
 
-            itemEdit.setOnClickListener { v: View ->
+            itemIncrease.setOnClickListener { v: View ->
+                val position = adapterPosition
+                    incrementByOne(position)
+                    notifyDataSetChanged()
+            }
 
-                Toast.LENGTH_LONG
+            itemDecrease.setOnClickListener { v: View ->
+                val position = adapterPosition
+                val savedProduct = Repository.products[position]
+                if(savedProduct.quantity>0) {
+
+                    decrementByOne(position)
+                    notifyDataSetChanged()
+                }
             }
         }
 

@@ -6,6 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import java.text.FieldPosition
 
 object Repository {
     var products = mutableListOf<Product>()
@@ -96,6 +97,22 @@ object Repository {
          db = Firebase.firestore
         db.collection("products").document(product.id)
             .update("name", name, "price", price, "quantity", quantity)
+    }
+
+    fun incrementByOne(position: Int){
+        val product = products[position]
+        product.quantity++
+        db = Firebase.firestore
+        db.collection("products").document(product.id)
+                .update( "quantity", product.quantity++)
+    }
+
+    fun decrementByOne(position: Int){
+            val product = products[position]
+            product.quantity--
+            db = Firebase.firestore
+            db.collection("products").document(product.id)
+                    .update("quantity", product.quantity--)
     }
 
     private fun addRealTimeListener()
