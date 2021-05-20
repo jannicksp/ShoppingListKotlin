@@ -21,7 +21,6 @@ import org.pondar.dialogfragmentdemokotlinnew.MyDialogFragment
 class MainActivity : AppCompatActivity() {
 
     //you need to have an Adapter for the products
-    private val items = arrayOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
     lateinit var adapter: ProductAdapter
     private val RESULT_CODE_PREFERENCES = 1
 
@@ -148,7 +147,7 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         Log.d("icon_pressed", "${item.itemId}")
         when (item.itemId) {
-            R.id.item_about -> {
+            R.id.item_share -> {
                 /* Share content */
                 val text = convertListToString() //from EditText
                 val sharingIntent = Intent(Intent.ACTION_SEND)
