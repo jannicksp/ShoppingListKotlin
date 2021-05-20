@@ -115,14 +115,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Sort by Name" />
+                android:text="Sort Name" />
 
             <Button
                 android:id="@+id/sortQuantityButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Sort by Number" />
+                android:text="Sort Quantity" />
 
 
 

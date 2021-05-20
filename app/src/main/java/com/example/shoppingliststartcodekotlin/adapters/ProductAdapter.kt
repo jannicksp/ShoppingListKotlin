@@ -83,7 +83,7 @@ class ProductAdapter(var products: MutableList<Product>) :
             itemDecrease.setOnClickListener { v: View ->
                 val position = adapterPosition
                 val savedProduct = Repository.products[position]
-                if(savedProduct.quantity>0) {
+                if(savedProduct.quantity>1) {
 
                     decrementByOne(position)
                     notifyDataSetChanged()
